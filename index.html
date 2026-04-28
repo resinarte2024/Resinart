@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResinArt — Curso Online de Resina Desde Cero</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #fdf8f3;
+  --warm: #f5ede3;
+  --blush: #f0d4c4;
+  --rose: #e8b4a0;
+  --terra: #c97b5e;
+  --deep: #8b4a35;
+  --dark: #2d1a14;
+  --text: #3d2419;
+  --muted: #9a7a6e;
+  --gold: #c9954a;
+  --gold2: #e8c080;
+  --white: #ffffff;
+  --green: #5a8a6e;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── FLOATING CTA ── */
+.floating-cta {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.floating-cta.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+.floating-cta a {
+  display: block;
+  background: var(--terra);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 8px 32px rgba(201,123,94,0.5);
+  letter-spacing: 0.3px;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #2d1a14 0%, #5c2d1e 40%, #8b4a35 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(240,212,196,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(201,149,74,0.1) 0%, transparent 50%);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--gold2);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 50px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(38px, 9vw, 80px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: white;
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.8s 0.1s ease both;
+  margin-bottom: 12px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold2);
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: rgba(255,255,255,0.7);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+
+.hero-price-block {
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.8s 0.3s ease both;
+  margin-bottom: 32px;
+}
+
+.price-old {
+  font-size: 20px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: line-through;
+  margin-bottom: 4px;
+  font-family: 'DM Mono', monospace;
+}
+
+.price-new {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 10vw, 80px);
+  font-weight: 900;
+  color: var(--gold2);
+  line-height: 1;
+}
+
+.price-new span {
+  font-size: 28px;
+  vertical-align: super;
+  font-weight: 400;
+}
+
+.price-note {
+  color: rgba(255,255,255,0.5);
+  font-size: 13px;
+  margin-top: 8px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 1px;
+}
+
+.hero-cta {
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.8s 0.4s ease both;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--terra), var(--deep));
+  color: white;
+  font-weight: 600;
+  font-size: 17px;
+  padding: 18px 48px;
+  border-radius: 4px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 14px 36px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: all 0.2s;
+  margin-top: 12px;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.08); }
+
+.hero-guarantee {
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.8s 0.5s ease both;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.5);
+  font-size: 13px;
+}
+
+.hero-guarantee::before { content: '🔒'; }
+
+/* ── SOCIAL PROOF BAR ── */
+.proof-bar {
+  background: var(--warm);
+  border-top: 1px solid var(--blush);
+  border-bottom: 1px solid var(--blush);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.proof-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.proof-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--terra);
+}
+
+/* ── SECTIONS ── */
+section {
+  padding: 80px 24px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.container-wide {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: var(--dark);
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--terra);
+}
+
+/* ── PROBLEM SECTION ── */
+.problem-section {
+  background: var(--dark);
+  color: white;
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.problem-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  padding: 24px;
+}
+
+.problem-card .icon { font-size: 28px; margin-bottom: 12px; }
+.problem-card h3 { font-size: 15px; font-weight: 600; color: white; margin-bottom: 8px; }
+.problem-card p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+/* ── FOR WHO ── */
+.forwho-section { background: var(--warm); }
+
+.forwho-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+@media (max-width: 600px) { .forwho-grid { grid-template-columns: 1fr; } }
+
+.forwho-card {
+  border-radius: 4px;
+  padding: 28px;
+}
+
+.forwho-card.yes {
+  background: white;
+  border: 1px solid var(--blush);
+  border-top: 3px solid var(--green);
+}
+
+.forwho-card.no {
+  background: white;
+  border: 1px solid var(--blush);
+  border-top: 3px solid var(--rose);
+}
+
+.forwho-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.forwho-card.yes h3 { color: var(--green); }
+.forwho-card.no h3 { color: #c05050; }
+
+.forwho-list { list-style: none; }
+.forwho-list li {
+  font-size: 14px;
+  color: var(--text);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--warm);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+.forwho-list li:last-child { border-bottom: none; }
+.forwho-list li::before { flex-shrink: 0; margin-top: 1px; }
+.forwho-card.yes .forwho-list li::before { content: '✓'; color: var(--green); font-weight: 700; }
+.forwho-card.no .forwho-list li::before { content: '✗'; color: #c05050; font-weight: 700; }
+
+/* ── CURRICULUM ── */
+.curriculum-section { background: var(--cream); }
+
+.module-list { margin-top: 40px; }
+
+.module {
+  border: 1px solid var(--blush);
+  border-radius: 4px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  background: white;
+  transition: border-color 0.2s;
+}
+
+.module:hover { border-color: var(--rose); }
+
+.module-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.module-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--terra);
+  flex-shrink: 0;
+  width: 32px;
+}
+
+.module-title {
+  flex: 1;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--dark);
+}
+
+.module-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 3px 10px;
+  background: var(--warm);
+  color: var(--terra);
+  border-radius: 50px;
+  flex-shrink: 0;
+}
+
+.module-arrow {
+  color: var(--rose);
+  font-size: 18px;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.module-arrow.open { transform: rotate(90deg); }
+
+.module-body {
+  display: none;
+  padding: 0 24px 20px;
+  border-top: 1px solid var(--warm);
+}
+
+.module-body.open { display: block; }
+
+.module-items {
+  list-style: none;
+  margin-top: 14px;
+}
+
+.module-items li {
+  font-size: 14px;
+  color: var(--muted);
+  padding: 6px 0;
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid var(--warm);
+  line-height: 1.5;
+}
+.module-items li:last-child { border-bottom: none; }
+.module-items li::before { content: '→'; color: var(--terra); flex-shrink: 0; }
+
+/* ── BONUSES ── */
+.bonus-section { background: var(--dark); }
+
+.bonus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.bonus-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bonus-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--terra), var(--gold));
+}
+
+.bonus-icon { font-size: 32px; margin-bottom: 16px; }
+.bonus-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--gold2);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.bonus-card h3 { font-size: 16px; color: white; font-weight: 600; margin-bottom: 8px; }
+.bonus-card p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+/* ── TESTIMONIALS ── */
+.testimonials-section { background: var(--warm); }
+
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.testi-card {
+  background: white;
+  border: 1px solid var(--blush);
+  border-radius: 4px;
+  padding: 28px 24px;
+  position: relative;
+}
+
+.testi-card::before {
+  content: '"';
+  font-family: 'Playfair Display', serif;
+  font-size: 72px;
+  color: var(--blush);
+  position: absolute;
+  top: 8px; left: 20px;
+  line-height: 1;
+}
+
+.testi-stars { color: var(--gold); font-size: 14px; margin-bottom: 12px; }
+.testi-text {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+  padding-top: 24px;
+}
+.testi-author { display: flex; align-items: center; gap: 10px; }
+.testi-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blush), var(--rose));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  font-family: 'Playfair Display', serif;
+  flex-shrink: 0;
+}
+.testi-name { font-size: 14px; font-weight: 600; color: var(--dark); }
+.testi-meta { font-size: 12px; color: var(--muted); }
+
+/* ── FAQ ── */
+.faq-section { background: var(--cream); }
+
+.faq-list { margin-top: 40px; }
+
+.faq-item {
+  border-bottom: 1px solid var(--blush);
+  overflow: hidden;
+}
+
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  cursor: pointer;
+  gap: 16px;
+}
+
+.faq-q span {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.4;
+}
+
+.faq-arrow {
+  color: var(--terra);
+  font-size: 20px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.faq-arrow.open { transform: rotate(45deg); }
+
+.faq-a {
+  display: none;
+  padding-bottom: 20px;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.faq-a.open { display: block; }
+
+/* ── PRICING ── */
+.pricing-section {
+  background: linear-gradient(160deg, #2d1a14 0%, #5c2d1e 60%, #8b4a35 100%);
+  text-align: center;
+}
+
+.pricing-section .section-title { color: white; }
+.pricing-section .section-label { color: var(--gold2); }
+
+.pricing-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  max-width: 480px;
+  margin: 40px auto 0;
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--terra), var(--gold));
+}
+
+.badge-best {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--dark);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 50px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.pricing-includes {
+  list-style: none;
+  margin: 28px 0;
+  text-align: left;
+}
+
+.pricing-includes li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  line-height: 1.5;
+}
+.pricing-includes li:last-child { border-bottom: none; }
+.pricing-includes li::before { content: '✓'; color: var(--gold2); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+.total-value {
+  background: rgba(255,255,255,0.04);
+  border-radius: 4px;
+  padding: 14px 20px;
+  margin: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.total-value span { font-size: 13px; color: rgba(255,255,255,0.5); }
+.total-value strong { font-family: 'Playfair Display', serif; font-size: 20px; color: rgba(255,255,255,0.4); text-decoration: line-through; }
+
+.pricing-price-display {
+  margin: 20px 0 28px;
+}
+
+.pricing-price-old {
+  font-size: 18px;
+  color: rgba(255,255,255,0.35);
+  text-decoration: line-through;
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 4px;
+}
+
+.pricing-price-new {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  font-weight: 900;
+  color: var(--gold2);
+  line-height: 1;
+}
+
+.pricing-price-new sup { font-size: 28px; vertical-align: super; font-weight: 400; }
+.pricing-price-sub { color: rgba(255,255,255,0.4); font-size: 13px; margin-top: 8px; }
+
+.cuotas-note {
+  color: rgba(255,255,255,0.5);
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+/* ── GUARANTEE ── */
+.guarantee-section { background: var(--warm); }
+
+.guarantee-box {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  background: white;
+  border: 1px solid var(--blush);
+  border-radius: 8px;
+  padding: 40px;
+  margin-top: 40px;
+}
+
+@media (max-width: 600px) { .guarantee-box { flex-direction: column; gap: 20px; } }
+
+.guarantee-icon {
+  font-size: 56px;
+  flex-shrink: 0;
+}
+
+.guarantee-box h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 12px;
+}
+
+.guarantee-box p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* ── FINAL CTA ── */
+.finalcta-section {
+  background: var(--cream);
+  text-align: center;
+}
+
+.finalcta-section .section-title { margin-bottom: 12px; }
+.finalcta-p {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 32px 24px;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.5px;
+  line-height: 1.8;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── URGENCY BAR ── */
+.urgency-bar {
+  background: var(--terra);
+  color: white;
+  text-align: center;
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.urgency-bar strong { font-weight: 700; }
+
+/* MOBILE */
+@media (max-width: 600px) {
+  section { padding: 60px 20px; }
+  .proof-bar { gap: 20px; }
+  .pricing-card { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+  🔥 Precio especial disponible ahora — <strong>Acceso de por vida incluido</strong>
+</div>
+
+<!-- FLOATING CTA -->
+<div class="floating-cta" id="floatingCta">
+  <a href="#comprar">Quiero aprender resina — $67 USD</a>
+</div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-badge">✦ Curso 100% Online · Desde Cero</div>
+
+  <h1>Aprendé a hacer resina y<br><em>construí tu negocio</em><br>desde casa</h1>
+
+  <p class="hero-sub">Sin experiencia previa. Sin taller profesional. Sin saber nada de arte. Solo seguís el sistema y en días tenés tus primeras piezas listas para vender.</p>
+
+  <div class="hero-price-block">
+    <div class="price-old">Precio regular: $134 USD</div>
+    <div class="price-new"><span>$</span>67 <span>USD</span></div>
+    <div class="price-note">PRECIO DE BECA · TIEMPO LIMITADO</div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#comprar" class="btn-primary">Quiero acceso ahora →</a><br>
+    <a href="#que-incluye" class="btn-secondary">Ver qué incluye el curso</a>
+  </div>
+
+  <div class="hero-guarantee">Garantía de 7 días — si no te convence, te devolvemos el dinero</div>
+</section>
+
+<!-- ═══════════ PROOF BAR ═══════════ -->
+<div class="proof-bar reveal">
+  <div class="proof-item"><div class="proof-num">100%</div><div>Online · A tu ritmo</div></div>
+  <div class="proof-item"><div class="proof-num">∞</div><div>Acceso de por vida</div></div>
+  <div class="proof-item"><div class="proof-num">0</div><div>Experiencia previa necesaria</div></div>
+  <div class="proof-item"><div class="proof-num">7</div><div>Días de garantía total</div></div>
+</div>
+
+<!-- ═══════════ PROBLEMA ═══════════ -->
+<section class="problem-section">
+  <div class="container">
+    <div class="section-label reveal">El problema</div>
+    <h2 class="section-title reveal" style="color:white;">¿Te identificás con <em style="color:var(--gold2)">alguna de estas</em> situaciones?</h2>
+
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="icon">😤</div>
+        <h3>Querés aprender pero no sabés por dónde empezar</h3>
+        <p>YouTube tiene miles de videos sin orden ni estructura. No sabés qué materiales comprar ni en qué secuencia aprender.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="icon">💸</div>
+        <h3>Tiraste dinero en materiales que no funcionaron</h3>
+        <p>Compraste resina sin saber las proporciones correctas y arruinaste las piezas. Frustrante y costoso.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="icon">⏰</div>
+        <h3>Querés un ingreso extra pero no tenés tiempo de ir a clases</h3>
+        <p>Necesitás algo flexible, que puedas aprender a tu ritmo, desde tu casa y sin horarios fijos.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="icon">😰</div>
+        <h3>"No soy artística, esto no es para mí"</h3>
+        <p>Creés que la resina requiere talento artístico especial. No es así — es técnica, no talento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PARA QUIÉN ═══════════ -->
+<section class="forwho-section">
+  <div class="container">
+    <div class="section-label reveal">¿Es para vos?</div>
+    <h2 class="section-title reveal">Este curso es para <em>personas como vos</em></h2>
+
+    <div class="forwho-grid">
+      <div class="forwho-card yes reveal">
+        <h3>✓ SÍ es para vos si...</h3>
+        <ul class="forwho-list">
+          <li>Querés aprender resina desde cero sin experiencia previa</li>
+          <li>Buscás un ingreso extra que podás manejar desde casa</li>
+          <li>Querés algo tuyo que no dependa de un jefe ni horarios</li>
+          <li>Estás dispuesta a aprender y practicar</li>
+          <li>Querés aprender al ritmo que te funcione a vos</li>
+          <li>Buscás algo creativo y rentable al mismo tiempo</li>
+        </ul>
+      </div>
+      <div class="forwho-card no reveal">
+        <h3>✗ NO es para vos si...</h3>
+        <ul class="forwho-list">
+          <li>Esperás resultados sin practicar nada</li>
+          <li>Buscás un sistema automático de dinero sin aprender</li>
+          <li>No estás dispuesta a dedicar tiempo al proceso</li>
+          <li>Ya sos experta en resina y buscás técnicas avanzadas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CURRICULUM ═══════════ -->
+<section class="curriculum-section" id="que-incluye">
+  <div class="container">
+    <div class="section-label reveal">Contenido del curso</div>
+    <h2 class="section-title reveal">Todo lo que vas a <em>aprender</em></h2>
+
+    <div class="module-list">
+
+      <div class="module reveal">
+        <div class="module-header" onclick="toggleModule(this)">
+          <span class="module-num">01</span>
+          <span class="module-title">Introducción a la resina epoxi</span>
+          <span class="module-tag">BASE</span>
+          <span class="module-arrow">›</span>
+        </div>
+        <div class="module-body">
+          <ul class="module-items">
+            <li>Qué es la resina epoxi y cómo funciona</li>
+            <li>Tipos de resina y para qué sirve cada una</li>
+            <li>Materiales esenciales para empezar (sin gastar de más)</li>
+            <li>Seguridad: cómo manipularla correctamente</li>
+            <li>Dónde comprar materiales al mejor precio</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module reveal">
+        <div class="module-header" onclick="toggleModule(this)">
+          <span class="module-num">02</span>
+          <span class="module-title">Proporciones y mezcla perfecta</span>
+          <span class="module-tag">TÉCNICA</span>
+          <span class="module-arrow">›</span>
+        </div>
+        <div class="module-body">
+          <ul class="module-items">
+            <li>Proporciones exactas para que la resina cure correctamente</li>
+            <li>Temperatura ideal para trabajar</li>
+            <li>Cómo evitar burbujas en las piezas</li>
+            <li>Tiempos de curado según el tipo de resina</li>
+            <li>Errores más comunes y cómo evitarlos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module reveal">
+        <div class="module-header" onclick="toggleModule(this)">
+          <span class="module-num">03</span>
+          <span class="module-title">Pigmentos, colores y efectos</span>
+          <span class="module-tag">DISEÑO</span>
+          <span class="module-arrow">›</span>
+        </div>
+        <div class="module-body">
+          <ul class="module-items">
+            <li>Tipos de pigmentos: polvos, líquidos, mica</li>
+            <li>Cómo mezclar colores sin arruinar la resina</li>
+            <li>Efectos especiales: mármol, galaxy, geoda</li>
+            <li>Flores secas, glitter y elementos decorativos</li>
+            <li>Técnicas de capas para piezas complejas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module reveal">
+        <div class="module-header" onclick="toggleModule(this)">
+          <span class="module-num">04</span>
+          <span class="module-title">Moldes y tipos de piezas</span>
+          <span class="module-tag">PRÁCTICA</span>
+          <span class="module-arrow">›</span>
+        </div>
+        <div class="module-body">
+          <ul class="module-items">
+            <li>Tipos de moldes: silicona, madera, vidrio</li>
+            <li>Llaveros y accesorios (los más vendidos)</li>
+            <li>Bandejas decorativas para eventos</li>
+            <li>Cuadros con flores y elementos naturales</li>
+            <li>Mesas y superficies de resina</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module reveal">
+        <div class="module-header" onclick="toggleModule(this)">
+          <span class="module-num">05</span>
+          <span class="module-title">Acabados y presentación profesional</span>
+          <span class="module-tag">ACABADO</span>
+          <span class="module-arrow">›</span>
+        </div>
+        <div class="module-body">
+          <ul class="module-items">
+            <li>Cómo lijar y pulir correctamente</li>
+            <li>Barnices y protectores para piezas terminadas</li>
+            <li>Cómo fotografiar tus piezas para venderlas</li>
+            <li>Empaque y presentación para ventas</li>
+            <li>Cómo establecer precios de venta</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module reveal">
+        <div class="module-header" onclick="toggleModule(this)">
+          <span class="module-num">06</span>
+          <span class="module-title">Tu negocio de resina desde casa</span>
+          <span class="module-tag">NEGOCIO</span>
+          <span class="module-arrow">›</span>
+        </div>
+        <div class="module-body">
+          <ul class="module-items">
+            <li>Qué piezas venden más y por qué</li>
+            <li>Dónde vender: Instagram, ferias, marketplace</li>
+            <li>Cómo recibir pedidos personalizados</li>
+            <li>Gestión de costos y ganancias</li>
+            <li>Cómo escalar tu negocio de resina</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ BONUSES ═══════════ -->
+<section class="bonus-section">
+  <div class="container">
+    <div class="section-label reveal" style="color:var(--gold2)">Todo lo que recibís</div>
+    <h2 class="section-title reveal" style="color:white;">Bonos incluidos <em style="color:var(--gold2)">sin costo extra</em></h2>
+
+    <div class="bonus-grid">
+      <div class="bonus-card reveal">
+        <div class="bonus-icon">📋</div>
+        <div class="bonus-value">BONO 1</div>
+        <h3>Lista completa de materiales</h3>
+        <p>Todo lo que necesitás comprar para empezar, con las marcas recomendadas y dónde conseguirlos al mejor precio.</p>
+      </div>
+      <div class="bonus-card reveal">
+        <div class="bonus-icon">💰</div>
+        <div class="bonus-value">BONO 2</div>
+        <h3>Guía de precios y ventas</h3>
+        <p>Cómo calcular el costo de tus piezas y fijar precios de venta rentables. Incluye plantilla de costos descargable.</p>
+      </div>
+      <div class="bonus-card reveal">
+        <div class="bonus-icon">📸</div>
+        <div class="bonus-value">BONO 3</div>
+        <h3>Guía de fotografía para vender</h3>
+        <p>Cómo fotografiar tus piezas con el celular para que se vean profesionales y atraigan compradores en Instagram.</p>
+      </div>
+      <div class="bonus-card reveal">
+        <div class="bonus-icon">🔄</div>
+        <div class="bonus-value">BONO 4</div>
+        <h3>Actualizaciones de por vida</h3>
+        <p>Cada vez que se agregue contenido nuevo al curso, lo recibís automáticamente sin pagar nada extra.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIOS ═══════════ -->
+<section class="testimonials-section">
+  <div class="container-wide">
+    <div class="section-label reveal">Lo que dicen nuestras alumnas</div>
+    <h2 class="section-title reveal">Resultados <em>reales</em> de personas reales</h2>
+
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Nunca había hecho nada artístico en mi vida. En la primera semana ya tenía mis primeras piezas terminadas. No puedo creer lo fácil que es cuando te lo explican bien desde cero.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">M</div>
+          <div>
+            <div class="testi-name">María G.</div>
+            <div class="testi-meta">Argentina · Emprendedora desde casa</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Recuperé la inversión del curso con las primeras 3 ventas. Ahora tengo pedidos de llaveros personalizados todas las semanas. Lo recomiendo sin dudarlo.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">L</div>
+          <div>
+            <div class="testi-name">Laura P.</div>
+            <div class="testi-meta">Colombia · Ya tiene su propio negocio</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Por fin encontré algo que puedo hacer a mi ritmo desde casa. Tengo dos hijos y necesitaba algo flexible. La resina fue la respuesta que estaba buscando.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">V</div>
+          <div>
+            <div class="testi-name">Valentina R.</div>
+            <div class="testi-meta">México · Mamá emprendedora</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-label reveal">Preguntas frecuentes</div>
+    <h2 class="section-title reveal">Todo lo que querés <em>saber</em></h2>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Necesito experiencia previa en arte o manualidades?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">No, para nada. El curso empieza desde absolutamente cero. No necesitás haber hecho nada artístico antes — solo seguir las instrucciones paso a paso. Muchas de nuestras alumnas nunca habían hecho ningún tipo de manualidad.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Cuánto necesito invertir en materiales para empezar?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Con aproximadamente $30–$50 USD en materiales básicos ya podés empezar a hacer tus primeras piezas. El curso incluye una lista completa de materiales con opciones económicas para que no gastes de más al principio.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Cuánto tiempo necesito por día para tomar el curso?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">El curso es 100% a tu ritmo — vos decidís cuándo y cuánto ver. Podés avanzar en 30 minutos al día o maratonearlo en un fin de semana. No hay fechas límite ni horarios fijos.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Desde qué país puedo comprar el curso?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Desde cualquier país de habla hispana. El pago se procesa a través de Hotmart que acepta tarjeta de crédito, débito, PayPal y transferencia bancaria en múltiples países. También está disponible en cuotas.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Qué pasa si el curso no es lo que esperaba?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Tenés 7 días de garantía total sin preguntas. Si por cualquier motivo el curso no te convence, pedís el reembolso y te devolvemos el dinero completo. Sin burocracia, sin excusas.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>¿El acceso al curso vence en algún momento?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">No. Comprás una vez y el acceso es tuyo para siempre. Además recibís todas las actualizaciones futuras que se agreguen al curso sin ningún costo adicional.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRICING ═══════════ -->
+<section class="pricing-section" id="comprar">
+  <div class="container">
+    <div class="section-label">Acceso al curso</div>
+    <h2 class="section-title">Empezá hoy mismo</h2>
+
+    <div class="pricing-card reveal">
+      <div class="badge-best">★ PRECIO DE BECA DISPONIBLE AHORA</div>
+
+      <ul class="pricing-includes">
+        <li>Curso completo de resina desde cero (6 módulos)</li>
+        <li>Acceso inmediato desde que comprás</li>
+        <li>Acceso de por vida + todas las actualizaciones</li>
+        <li>Lista completa de materiales para empezar</li>
+        <li>Guía de precios y cálculo de costos</li>
+        <li>Guía de fotografía para vender tus piezas</li>
+        <li>Soporte ante dudas</li>
+        <li>Garantía de 7 días sin preguntas</li>
+      </ul>
+
+      <div class="total-value">
+        <span>Valor total del paquete</span>
+        <strong>$267 USD</strong>
+      </div>
+
+      <div class="pricing-price-display">
+        <div class="pricing-price-old">$134 USD precio regular</div>
+        <div class="pricing-price-new"><sup>$</sup>67 <sup>USD</sup></div>
+        <div class="pricing-price-sub">PRECIO DE BECA · PAGO ÚNICO</div>
+      </div>
+
+      <a href="https://go.hotmart.com/Y90147059Q?ap=b164" class="btn-primary" style="width:100%;text-align:center;display:block;font-size:18px;padding:20px;">
+        Quiero acceso ahora →
+      </a>
+
+      <div class="cuotas-note">También disponible en 2 cuotas de $34 USD · Todos los medios de pago</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ GARANTÍA ═══════════ -->
+<section class="guarantee-section">
+  <div class="container">
+    <div class="section-label reveal">Sin riesgo</div>
+    <h2 class="section-title reveal">Garantía total de <em>7 días</em></h2>
+
+    <div class="guarantee-box reveal">
+      <div class="guarantee-icon">🔒</div>
+      <div>
+        <h3>Si no te convence, te devolvemos el dinero</h3>
+        <p>Tenés 7 días completos para explorar todo el curso. Si por cualquier motivo no es lo que esperabas, escribinos y te hacemos la devolución completa sin hacer preguntas. Creemos tanto en este curso que asumimos todo el riesgo nosotros.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FINAL CTA ═══════════ -->
+<section class="finalcta-section">
+  <div class="container">
+    <div class="section-label reveal">Última oportunidad</div>
+    <h2 class="section-title reveal">Dentro de 30 días podés tener<br><em>tu primer negocio de resina</em></h2>
+    <p class="finalcta-p reveal">El conocimiento va a estar ahí esperándote. La pregunta es cuándo decidís empezar. El precio de beca no va a estar disponible para siempre.</p>
+    <div class="reveal">
+      <a href="#comprar" class="btn-primary" style="font-size:18px;padding:20px 56px;">
+        Empezar ahora por $67 USD →
+      </a>
+      <p style="margin-top:16px;font-size:13px;color:var(--muted);">🔒 Pago seguro · Acceso inmediato · Garantía 7 días</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <p>© 2025 ResinArt · Curso Online de Resina Epoxi</p>
+  <p style="margin-top:8px;">Los resultados pueden variar según la dedicación de cada persona.</p>
+</footer>
+
+<script>
+// Floating CTA
+window.addEventListener('scroll', () => {
+  const cta = document.getElementById('floatingCta');
+  cta.classList.toggle('visible', window.scrollY > 600);
+});
+
+// Reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Toggle modules
+function toggleModule(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.module-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+// Toggle FAQ
+function toggleFaq(q) {
+  const a = q.nextElementSibling;
+  const arrow = q.querySelector('.faq-arrow');
+  a.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+</script>
+</body>
+</html>
